@@ -285,7 +285,7 @@ bats_start_timeout_countdown() { # <timeout>
     # (On Windows the TERM signal does not seem to shut down sleep)
     sleep "$timeout" &
     # shellcheck disable=SC2064
-    trap "kill $!; exit 0" TERM
+    trap "ps -ef | grep $!; kill $!; exit 0" TERM
     wait
     trap '' TERM
     bats_kill_processes_of $target_pid TERM
